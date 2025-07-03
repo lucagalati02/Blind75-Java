@@ -90,13 +90,83 @@ public class Arrays_N_Hashing {
     //{
     //https://neetcode.io/problems/string-encode-and-decode?list=blind75
     public String encode(List<String> strs) {
-
+        StringBuilder sb = new StringBuilder();
+        for (String s : strs) {
+            sb.append(s.length())
+                    .append('#')
+                    .append(s);
+        }
+        return sb.toString();
     }
 
-    public List<String> decode(String str) {
-
+    public List<String> decode(String s) {
+        List<String> res = new ArrayList<>();
+        int i = 0, n = s.length();
+        while (i < n) {
+            int j = s.indexOf('#', i);
+            int len = Integer.parseInt(s.substring(i, j));
+            String str = s.substring(j + 1, j + 1 + len);
+            res.add(str);
+            i = j + 1 + len;
+        }
+        return res;
     }
     //}
+
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int zeroCount = 0;
+        long totalProduct = 1L;
+
+        // 1) Count zeros and build product of non-zero values
+        for (int num : nums) {
+            if (num == 0) {
+                zeroCount++;
+            } else {
+                totalProduct *= num;
+            }
+        }
+
+        int[] result = new int[n];
+
+        // 2) Fill result based on zeroCount
+        for (int i = 0; i < n; i++) {
+            if (zeroCount > 1) {
+                result[i] = 0;
+            }
+            else if (zeroCount == 1) {
+                result[i] = (nums[i] == 0)
+                        ? (int) totalProduct
+                        : 0;
+            }
+            else {
+                result[i] = (int) (totalProduct / nums[i]);
+            }
+        }
+
+        return result;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        Arrays.sort(nums);
+        int longest = 1;
+        int current = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                continue;
+            }
+            if (nums[i] == nums[i - 1] + 1) {
+                current++;
+            } else {
+                longest = Math.max(longest, current);
+                current = 1;
+            }
+        }
+        return Math.max(longest, current);
+    }
 }
 
 
