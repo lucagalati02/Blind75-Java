@@ -114,6 +114,7 @@ public class Arrays_N_Hashing {
     //}
 
     public int[] productExceptSelf(int[] nums) {
+        //https://neetcode.io/problems/products-of-array-discluding-self?list=blind75
         int n = nums.length;
         int zeroCount = 0;
         long totalProduct = 1L;
@@ -148,6 +149,7 @@ public class Arrays_N_Hashing {
     }
 
     public int longestConsecutive(int[] nums) {
+        //https://neetcode.io/problems/longest-consecutive-sequence?list=blind75
         if (nums == null || nums.length == 0) return 0;
 
         Arrays.sort(nums);
@@ -168,38 +170,3 @@ public class Arrays_N_Hashing {
         return Math.max(longest, current);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
