@@ -39,5 +39,24 @@ public class SlidingWindow {
         return longest;
     }
 
+    public int characterReplacement(String s, int k) {
+        //https://neetcode.io/problems/longest-repeating-substring-with-replacement?list=blind75
+        HashMap<Character, Integer> map = new HashMap<>();
+        int result = 0;
+        int left = 0;
+        int maxF = 0;
+        char[] letters = s.toCharArray();
 
+        for (int right = 0; right < letters.length; right++) {
+            map.put(letters[right], map.getOrDefault(letters[right], 0) + 1);
+            maxF = Math.max(maxF, map.get(letters[right]));
+
+            while ((right - left + 1) - maxF > k) {
+                map.put(letters[left], map.get(letters[left]) - 1);
+                left++;
+            }
+            result = Math.max(result, right - left + 1);
+        }
+        return result;
+    }
 }
